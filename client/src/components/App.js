@@ -1,36 +1,21 @@
 import "../style/App.css";
 import Looper from "../Looper";
-import { Button, ButtonGroup } from "react-bootstrap";
-import { useState } from "react";
+import { Button } from "react-bootstrap";
+import LoopButton from "./LoopButton";
+
+const songsNames = ["_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9"];
 
 function App() {
   const MainLoop = new Looper();
-  const [button1, setButton1] = useState(false);
+
   return (
     <div className="App">
       <h1>Hello World</h1>
-      <Button
-        variant={button1 ? "secondary" : "primary"}
-        onClick={() => {
-          MainLoop.addLoop("_1");
-        }}
-      >
-        Funk
-      </Button>
-      <Button
-        onClick={() => {
-          MainLoop.addLoop("_2");
-        }}
-      >
-        Bass
-      </Button>
-      <Button
-        onClick={() => {
-          MainLoop.addLoop("_3");
-        }}
-      >
-        Strutter
-      </Button>
+      {songsNames.map((name, i) => {
+        return (
+          <LoopButton key={i} mainLoop={MainLoop} songName={name}></LoopButton>
+        );
+      })}
       <Button
         variant="secondary"
         onClick={() => {
