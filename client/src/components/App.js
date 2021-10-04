@@ -12,6 +12,7 @@ import bagpipes from "../style/images/46- bagpipes.svg";
 import synthesizer from "../style/images/30-synthesizer.svg";
 import drum from "../style/images/22-drum.svg";
 import StartStop from "./StartStop";
+import Title from "./Title";
 
 const songsNames = [
   { name: "_1", icon: acoustic },
@@ -30,16 +31,16 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello World</h1>
+      <Title />
       <Container>
         <Row lg={3} md={3}>
-          {songsNames.map((name, i) => {
+          {songsNames.map((sound, i) => {
             return (
               <Col key={i}>
                 <LoopButton
                   mainLoop={MainLoop}
-                  songName={name.name}
-                  icon={name.icon}
+                  songName={sound.name}
+                  icon={sound.icon}
                 ></LoopButton>
               </Col>
             );
