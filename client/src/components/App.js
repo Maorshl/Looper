@@ -1,8 +1,7 @@
 import "../style/App.css";
 import Looper from "../Looper";
-import { Button } from "react-bootstrap";
+import { Button, Container, Row, Col } from "react-bootstrap";
 import LoopButton from "./LoopButton";
-
 const songsNames = ["_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9"];
 
 function App() {
@@ -11,26 +10,34 @@ function App() {
   return (
     <div className="App">
       <h1>Hello World</h1>
-      {songsNames.map((name, i) => {
-        return (
-          <LoopButton key={i} mainLoop={MainLoop} songName={name}></LoopButton>
-        );
-      })}
+      <Container>
+        <Row lg={3} md={3}>
+          {songsNames.map((name, i) => {
+            return (
+              <Col key={i}>
+                <LoopButton mainLoop={MainLoop} songName={name}></LoopButton>
+              </Col>
+            );
+          })}
+        </Row>
+      </Container>
       <Button
+        className="start-stop-button"
         variant="secondary"
         onClick={() => {
           MainLoop.start();
         }}
       >
-        start
+        <i className="bi bi-play"></i>
       </Button>
       <Button
+        className="start-stop-button"
         variant="secondary"
         onClick={() => {
           MainLoop.stop();
         }}
       >
-        stop
+        <i className="bi bi-stop"></i>
       </Button>
     </div>
   );
