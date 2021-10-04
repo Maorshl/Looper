@@ -32,6 +32,7 @@ export default class Looper {
       _9,
     };
     this.active = [];
+    this.first = true;
   }
   stop() {
     for (let current of this.active) {
@@ -39,21 +40,43 @@ export default class Looper {
       current.currentTime = 0;
     }
   }
+
   start() {
-    console.log(this.active);
     for (let current of this.active) {
       current.play();
     }
   }
+
   addLoop(song) {
-    this.playlist[song].addEventListener("ended", () => {
-      this.start();
-    });
+    if (!this.active.length) {
+      this.playlist[song].addEventListener("ended", () => {
+        this.stop();
+        this.start();
+      });
+    }
 
     if (this.active.indexOf(this.playlist[song]) === -1) {
       this.active.push(this.playlist[song]);
+    } else if (
+      this.active.indexOf(this.playlist[song]) === 0 &&
+      this.active.length > 1
+    ) {
+      this.removeLoop(song);
+      this.active[0].addEventListener("ended", () => {
+        this.stop();
+        this.start();
+      });
+    } else if (
+      this.active.indexOf(this.playlist[song]) === 0 &&
+      this.active.length === 1
+    ) {
+      this.removeLoop(song);
+      this.first = true;
     } else this.removeLoop(song);
-    if (this.active.length === 1) this.start();
+    if (this.active.length === 1 && this.first) {
+      this.start();
+      this.first = false;
+    }
   }
 
   removeLoop(song) {
@@ -63,6 +86,8 @@ export default class Looper {
     if (index > -1) {
       this.active.splice(index, 1);
     }
-    console.log(this.active);
+    if (!this.active.length) {
+      this.first = true;
+    }
   }
 }
