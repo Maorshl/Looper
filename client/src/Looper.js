@@ -18,4 +18,16 @@ export default class Looper {
     };
     this.active = [];
   }
+  stop() {
+    for (let current of this.active) {
+      current.pause();
+      current.currentTime = 0;
+    }
+  }
+  start() {
+    console.log(this.active);
+    for (let current of this.active) {
+      current.play();
+    }
+  }
 }
