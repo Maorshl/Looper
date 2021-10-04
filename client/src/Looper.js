@@ -1,13 +1,22 @@
-import funk from "./sounds/electric guitar coutry slide 120bpm - B.mp3";
+import guitar from "./sounds/electric guitar coutry slide 120bpm - B.mp3";
 import stutter from "./sounds/120_stutter_breakbeats_16.mp3";
 import bass from "./sounds/Bass Warwick heavy funk groove on E 120 BPM.mp3";
+import funk from "./sounds/120_future_funk_beats_25.mp3";
+import fud from "./sounds/FUD_120_StompySlosh.mp3";
+import groove from "./sounds/GrooveB_120bpm_Tanggu.mp3";
+import maze from "./sounds/MazePolitics_120_Perc.mp3";
+import groove1 from "./sounds/PAS3GROOVE1.03B.mp3";
+import synth from "./sounds/SilentStar_120_Em_OrganSynth.mp3";
 
-const _1 = new Audio(funk);
-// _1.loop = true;
+const _1 = new Audio(guitar);
 const _2 = new Audio(stutter);
-// _2.loop = true;
 const _3 = new Audio(bass);
-// _3.loop = true;
+const _4 = new Audio(funk);
+const _5 = new Audio(fud);
+const _6 = new Audio(groove);
+const _7 = new Audio(maze);
+const _8 = new Audio(groove1);
+const _9 = new Audio(synth);
 
 export default class Looper {
   constructor() {
@@ -15,6 +24,12 @@ export default class Looper {
       _1,
       _2,
       _3,
+      _4,
+      _5,
+      _6,
+      _7,
+      _8,
+      _9,
     };
     this.active = [];
   }
