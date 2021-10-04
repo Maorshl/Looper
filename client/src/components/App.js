@@ -1,8 +1,29 @@
 import "../style/App.css";
 import Looper from "../Looper";
-import { Button, Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import LoopButton from "./LoopButton";
-const songsNames = ["_1", "_2", "_3", "_4", "_5", "_6", "_7", "_8", "_9"];
+import acoustic from "../style/images/1-acoustic guitar.svg";
+import violoncello from "../style/images/5-violoncello.svg";
+import amp from "../style/images/7-amp.svg";
+import conga from "../style/images/13-conga.svg";
+import dj from "../style/images/29-dj mixer.svg";
+import drumSet from "../style/images/42-drum set.svg";
+import bagpipes from "../style/images/46- bagpipes.svg";
+import synthesizer from "../style/images/30-synthesizer.svg";
+import drum from "../style/images/22-drum.svg";
+import StartStop from "./StartStop";
+
+const songsNames = [
+  { name: "_1", icon: acoustic },
+  { name: "_2", icon: amp },
+  { name: "_3", icon: violoncello },
+  { name: "_4", icon: dj },
+  { name: "_5", icon: drumSet },
+  { name: "_6", icon: conga },
+  { name: "_7", icon: synthesizer },
+  { name: "_8", icon: drum },
+  { name: "_9", icon: bagpipes },
+];
 
 function App() {
   const MainLoop = new Looper();
@@ -15,30 +36,17 @@ function App() {
           {songsNames.map((name, i) => {
             return (
               <Col key={i}>
-                <LoopButton mainLoop={MainLoop} songName={name}></LoopButton>
+                <LoopButton
+                  mainLoop={MainLoop}
+                  songName={name.name}
+                  icon={name.icon}
+                ></LoopButton>
               </Col>
             );
           })}
         </Row>
       </Container>
-      <Button
-        className="start-stop-button"
-        variant="secondary"
-        onClick={() => {
-          MainLoop.start();
-        }}
-      >
-        <i className="bi bi-play"></i>
-      </Button>
-      <Button
-        className="start-stop-button"
-        variant="secondary"
-        onClick={() => {
-          MainLoop.stop();
-        }}
-      >
-        <i className="bi bi-stop"></i>
-      </Button>
+      <StartStop mainLoop={MainLoop} />
     </div>
   );
 }

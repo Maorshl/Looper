@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "react-bootstrap";
 
-function LoopButton({ mainLoop, songName }) {
+function LoopButton({ mainLoop, songName, icon }) {
   const [isPressed, setIsPressed] = useState(false);
   return (
     <Button
@@ -12,7 +12,7 @@ function LoopButton({ mainLoop, songName }) {
         setIsPressed((prevState) => !prevState);
       }}
     >
-      {songName}
+      <img src={icon} alt="musical instrument"></img>
     </Button>
   );
 }
