@@ -30,4 +30,24 @@ export default class Looper {
       current.play();
     }
   }
+  addLoop(song) {
+    this.playlist[song].addEventListener("ended", () => {
+      this.start();
+    });
+
+    if (this.active.indexOf(this.playlist[song]) === -1) {
+      this.active.push(this.playlist[song]);
+    } else this.removeLoop(song);
+    if (this.active.length === 1) this.start();
+  }
+
+  removeLoop(song) {
+    const index = this.active.indexOf(this.playlist[song]);
+    this.active[index].pause();
+    this.active[index].currentTime = 0;
+    if (index > -1) {
+      this.active.splice(index, 1);
+    }
+    console.log(this.active);
+  }
 }
