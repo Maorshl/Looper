@@ -1,5 +1,7 @@
+// import { useState } from "react";
 import "../style/App.css";
-import Looper from "../Looper";
+import Looper from "../classes/Looper";
+// import Recorder from "../classes/Recorder";
 import { Container, Row, Col } from "react-bootstrap";
 import LoopButton from "./LoopButton";
 import acoustic from "../style/images/1-acoustic guitar.svg";
@@ -28,6 +30,9 @@ const songsNames = [
 
 function App() {
   const MainLoop = new Looper();
+  // const MainRecorder = new Recorder();
+  // const [isRecording, setIsRecording] = useState(false);
+  // const [isPlayingRecording, setIsPlayingRecording] = useState(false);
 
   return (
     <div className="App">
@@ -38,6 +43,8 @@ function App() {
             return (
               <Col key={i}>
                 <LoopButton
+                  // recorder={MainRecorder}
+                  // isRecording={isRecording}
                   mainLoop={MainLoop}
                   songName={sound.name}
                   icon={sound.icon}
