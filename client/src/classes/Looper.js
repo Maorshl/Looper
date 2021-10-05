@@ -38,17 +38,17 @@ export default class Looper {
   }
 
   // stop method to stop all active sounds immediately, and rewind to the start.
-  stop() {
+  async stop() {
     for (let current of this.active) {
-      current.pause();
+      await current.pause();
       current.currentTime = 0;
     }
   }
 
   // start method to start playing all of the active sounds.
-  start() {
+  async start() {
     for (let current of this.active) {
-      current.play();
+      await current.play();
     }
   }
 
@@ -56,9 +56,9 @@ export default class Looper {
   addLoop(song) {
     // If its the first sound adding an event listener, when the cycle ends to start over.
     if (!this.active.length) {
-      this.playlist[song].addEventListener("ended", () => {
-        this.stop();
-        this.start();
+      this.playlist[song].addEventListener("ended", async () => {
+        await this.stop();
+        await this.start();
       });
     }
     // If the sound is not active, push to active.
@@ -70,10 +70,10 @@ export default class Looper {
       this.active.length > 1
     ) {
       this.removeLoop(song); // remove the sound from active
-      this.active[0].addEventListener("ended", () => {
+      this.active[0].addEventListener("ended", async () => {
         // adds a new event listener to the new first (for the loop to go on)
-        this.stop();
-        this.start();
+        await this.stop();
+        await this.start();
       });
     } else if (
       // else if its the first and only one
