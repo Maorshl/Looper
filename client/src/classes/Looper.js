@@ -48,7 +48,18 @@ export default class Looper {
   // start method to start playing all of the active sounds.
   async start() {
     for (let current of this.active) {
-      await current.play();
+      const isPlaying =
+        current.currentTime > 0 &&
+        !current.paused &&
+        !current.ended &&
+        current.readyState > current.HAVE_CURRENT_DATA;
+      // because there is sometimes an error that the pause() was interrupted by the play() I tried to make sure the sound is paused.
+      // It is sometimes still show that error and I know its because the pause() and play() are asynchronous but I didn't manage to completely solve it.
+      if (!isPlaying) {
+        await current.play().catch((error) => {
+          console.error(error);
+        });
+      }
     }
   }
 
@@ -56,9 +67,9 @@ export default class Looper {
   addLoop(song) {
     // If its the first sound adding an event listener, when the cycle ends to start over.
     if (!this.active.length) {
-      this.playlist[song].addEventListener("ended", async () => {
-        await this.stop();
-        await this.start();
+      this.playlist[song].addEventListener("ended", () => {
+        this.stop();
+        this.start();
       });
     }
     // If the sound is not active, push to active.
@@ -70,10 +81,10 @@ export default class Looper {
       this.active.length > 1
     ) {
       this.removeLoop(song); // remove the sound from active
-      this.active[0].addEventListener("ended", async () => {
+      this.active[0].addEventListener("ended", () => {
         // adds a new event listener to the new first (for the loop to go on)
-        await this.stop();
-        await this.start();
+        this.stop();
+        this.start();
       });
     } else if (
       // else if its the first and only one
